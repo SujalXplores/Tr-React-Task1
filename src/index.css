@@ -5,8 +5,9 @@
 }
 
 html {
+  height: 100%;
   font-family: Roboto, 'Open Sans', sans-serif;
-  background: linear-gradient(90deg, #1f005c, #4d0773, #85118b, #a21d7f, #b92c68, #d03e50, #e87053, #ffb56b);
+  background: linear-gradient(45deg,  #6d94ca 0%,#a8c1ef 100%);
 }
 
 body {
