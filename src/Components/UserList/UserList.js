@@ -10,7 +10,8 @@ const UserList = (props) => {
         <ul className={styles.ul}>
           {props.users.map((user) => (
             <li key={Math.random().toString()} className={styles.li}>
-              {user.username}, Age: {user.age}
+              {user.username}, Age: {user.age},{user.firstname}, {user.lastname}
+              ,{user.maths},{user.science}
             </li>
           ))}
         </ul>
