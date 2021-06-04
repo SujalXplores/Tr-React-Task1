@@ -1,0 +1,9 @@
+.cta__button {
+    padding: 0.5rem;
+    background: #845EC2;
+    border: 0;
+    color: white;
+    border-radius: 20px;
+    width: 20%;
+    cursor: pointer;
+}

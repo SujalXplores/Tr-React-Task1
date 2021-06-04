@@ -1,0 +1,19 @@
+.ul {
+    list-style-type: none;
+}
+
+.empty__record {
+    border: 1px solid hsl(0, 100%, 50%);
+    padding: 1rem;
+    margin: 1rem 0;
+    background: hsl(0, 73%, 78%);
+    font-weight: 600;
+}
+
+.li {
+    border: 1px solid hsl(0, 0%, 0%);
+    padding: 1rem;
+    margin: 1rem 0;
+    background: hsl(103, 100%, 83%);
+    font-weight: 600;
+}
