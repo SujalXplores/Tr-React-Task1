@@ -10,15 +10,22 @@ const App = () => {
       return [
         ...prevList,
         {
+          id: Math.random().toString(),
           username: u_name,
           age: u_age,
           firstname: f_name,
           lastname: l_name,
           maths: maths,
-          science: science
+          science: science,
         },
       ];
     });
+  };
+
+  const onDeleteListItem = (id) => {
+    const newList = userList.filter((item) => item.id !== id);
+    setUserList(newList);
+    return <UserList users={userList} onDelete={onDeleteListItem} />;
   };
 
   return (
@@ -27,7 +34,7 @@ const App = () => {
         <User onAddUser={addUserHandler} />
       </section>
       <section>
-        <UserList users={userList} />
+        <UserList users={userList} onDelete={onDeleteListItem} />
       </section>
     </div>
   );

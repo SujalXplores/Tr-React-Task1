@@ -5,11 +5,6 @@
 }
 
 html {
-  height: 100%;
   font-family: Roboto, 'Open Sans', sans-serif;
-  background: linear-gradient(45deg,  #6d94ca 0%,#a8c1ef 100%);
-}
-
-body {
-  width: 100%;
+  background: linear-gradient(#303030 100%,#5d5d5d 100%);
 }
