@@ -39,7 +39,9 @@ const User = (props) => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    props.onAddUser(firstname, lastname, maths, science, username, age);
+    if(username && age && firstname && lastname && maths && science) {
+      props.onAddUser(firstname, lastname, maths, science, username, age);
+    }
     setUsername("");
     setAge("");
     setMaths("");
@@ -52,7 +54,6 @@ const User = (props) => {
     <Card>
       <form
         onSubmit={onSubmitHandler}
-        noValidate
         autoComplete="off"
         style={{ flexGrow: 1 }}
       >
@@ -81,7 +82,7 @@ const User = (props) => {
               size="small"
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               label="Username"
@@ -93,7 +94,7 @@ const User = (props) => {
               size="small"
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               label="Age"
@@ -107,7 +108,7 @@ const User = (props) => {
               size="small"
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               onChange={onMathsChange}
@@ -120,7 +121,7 @@ const User = (props) => {
               size="small"
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               onChange={onScienceChange}
