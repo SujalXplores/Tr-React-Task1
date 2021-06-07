@@ -22,10 +22,9 @@ const App = () => {
     });
   };
 
-  const onDeleteListItem = (id) => {
-    const newList = userList.filter((item) => item.id !== id);
+  const setNewList = (newList) => {
     setUserList(newList);
-    return <UserList users={userList} onDelete={onDeleteListItem} />;
+    return <UserList users={userList} onDeleteList={setNewList} />;
   };
 
   return (
@@ -34,7 +33,7 @@ const App = () => {
         <User onAddUser={addUserHandler} />
       </section>
       <section>
-        <UserList users={userList} onDelete={onDeleteListItem} />
+        <UserList users={userList} onDeleteList={setNewList} />
       </section>
     </div>
   );
