@@ -1,53 +1,56 @@
 import React from "react";
 import Card from "../UI/Card";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 
-import styles from "./UserList.module.css";
+import { DataGrid, GridToolbar } from "@material-ui/data-grid";
 
 const UserList = (props) => {
+  const rows = props.users;
+  const columns = [
+    { field: "id", hide: true },
+    { field: "firstname", headerName: "First Name", width: 150 },
+    { field: "lastname", headerName: "Last Name", width: 150 },
+    { field: "username", headerName: "Username", width: 150 },
+    { field: "age", headerName: "Age", width: 150 },
+    { field: "maths", headerName: "Maths", width: 150 },
+    {
+      field: "science",
+      headerName: "Science",
+      width: 150,
+      filterable: false,
+      editable: (rowData) => {
+        return rowData.allowEdit ? true : false;
+      },
+    },
+    {
+      field: "Actions",
+      width: 150,
+      sortable: false,
+      disableClickEventBubbling: true,
+      renderCell: (user) => {
+        return (
+          <IconButton color="secondary" onClick={() => props.onDelete(user.id)}>
+            <DeleteIcon />
+          </IconButton>
+        );
+      },
+      filterable: false,
+    },
+  ];
+
   if (props.users.length > 0) {
     return (
       <Card>
-        <TableContainer component={Paper}>
-          <Table className={styles.user__table}>
-            <TableHead>
-              <TableRow>
-                <TableCell>First Name</TableCell>
-                <TableCell>Last Name</TableCell>
-                <TableCell>Username</TableCell>
-                <TableCell>Age</TableCell>
-                <TableCell>Maths</TableCell>
-                <TableCell>Science</TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {props.users.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell>{user.username}</TableCell>
-                  <TableCell>{user.age}</TableCell>
-                  <TableCell>{user.firstname}</TableCell>
-                  <TableCell>{user.lastname}</TableCell>
-                  <TableCell>{user.maths}</TableCell>
-                  <TableCell>{user.science}</TableCell>
-                  <TableCell>
-                    <IconButton color="secondary" onClick={() => props.onDelete(user.id)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <DataGrid
+          autoHeight
+          rows={rows}
+          columns={columns}
+          components={{
+            Toolbar: GridToolbar,
+          }}
+          disableColumnMenu={true}
+        />
       </Card>
     );
   }

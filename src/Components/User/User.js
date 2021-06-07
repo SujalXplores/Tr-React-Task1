@@ -39,8 +39,8 @@ const User = (props) => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    if(username && age && firstname && lastname && maths && science) {
-      props.onAddUser(firstname, lastname, maths, science, username, age);
+    if (username && age && firstname && lastname && maths && science) {
+      props.onAddUser(firstname, lastname, username, age, maths, science);
     }
     setUsername("");
     setAge("");
