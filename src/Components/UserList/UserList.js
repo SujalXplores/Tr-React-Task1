@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Card from "../UI/Card";
-import DeleteIcon from "@material-ui/icons/Delete";
 import styles from "./UserList.module.css";
 
 const UserList = (props) => {
@@ -41,10 +40,12 @@ const UserList = (props) => {
                 <td className={styles.td}>{user.maths}</td>
                 <td className={styles.td}>{user.science}</td>
                 <td className={styles.td}>
-                  <DeleteIcon
-                    color="secondary"
+                  <button
+                    className={styles.delete__btn}
                     onClick={() => handleDeleteItem(user.id)}
-                  />
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
