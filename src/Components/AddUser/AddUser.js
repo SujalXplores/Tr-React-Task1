@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Card from "../UI/Card";
-import Button from "@material-ui/core/Button";
-import SaveIcon from "@material-ui/icons/Save";
-import Grid from "@material-ui/core/Grid";
+import Button from "../UI/Button";
 import InputField from "../UI/InputField";
+import styles from "./AddUser.module.css";
 
 const AddUser = (props) => {
   const [username, setUsername] = useState("");
@@ -52,13 +51,9 @@ const AddUser = (props) => {
 
   return (
     <Card>
-      <form
-        onSubmit={onSubmitHandler}
-        autoComplete="off"
-        style={{ flexGrow: 1 }}
-      >
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
+      <form onSubmit={onSubmitHandler} autoComplete="off">
+        <div className={styles.main__container}>
+          <div className={styles.input__container}>
             <InputField
               onChange={onFirstNameChange}
               value={firstname}
@@ -66,8 +61,8 @@ const AddUser = (props) => {
               type="text"
               required
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </div>
+          <div className={styles.input__container}>
             <InputField
               onChange={onLastNameChange}
               value={lastname}
@@ -75,8 +70,8 @@ const AddUser = (props) => {
               type="text"
               required
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </div>
+          <div className={styles.input__container}>
             <InputField
               label="Username"
               onChange={onUsernameChange}
@@ -84,8 +79,8 @@ const AddUser = (props) => {
               type="text"
               required
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </div>
+          <div className={styles.input__container}>
             <InputField
               label="Age"
               onChange={onAgeChange}
@@ -95,8 +90,8 @@ const AddUser = (props) => {
               max="120"
               required
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </div>
+          <div className={styles.input__container}>
             <InputField
               onChange={onMathsChange}
               value={maths}
@@ -106,8 +101,8 @@ const AddUser = (props) => {
               type="number"
               required
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </div>
+          <div className={styles.input__container}>
             <InputField
               onChange={onScienceChange}
               value={science}
@@ -117,17 +112,9 @@ const AddUser = (props) => {
               type="number"
               required
             />
-          </Grid>
-        </Grid>
-        <Button
-          style={{ marginTop: "1rem" }}
-          type="submit"
-          variant="contained"
-          color="primary"
-          startIcon={<SaveIcon />}
-        >
-          Add
-        </Button>
+          </div>
+        </div>
+        <Button type="submit">Add</Button>
       </form>
     </Card>
   );
