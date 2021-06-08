@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import User from "./Components/User/User";
+import AddUser from "./Components/AddUser/AddUser";
 import UserList from "./Components/UserList/UserList";
 
 const App = () => {
@@ -30,7 +30,7 @@ const App = () => {
   return (
     <div>
       <section>
-        <User onAddUser={addUserHandler} />
+        <AddUser onAddUser={addUserHandler} />
       </section>
       <section>
         <UserList users={userList} onDeleteList={setNewList} />

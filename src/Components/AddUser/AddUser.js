@@ -5,7 +5,7 @@ import SaveIcon from "@material-ui/icons/Save";
 import Grid from "@material-ui/core/Grid";
 import InputField from "../UI/InputField";
 
-const User = (props) => {
+const AddUser = (props) => {
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -133,4 +133,4 @@ const User = (props) => {
   );
 };
 
-export default User;
+export default AddUser;
