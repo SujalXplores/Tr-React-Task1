@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Card from "../UI/Card";
-import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import {
-  DataGrid,
-  GridToolbarContainer,
-  GridToolbarFilterButton,
-  GridToolbarDensitySelector,
-  GridToolbarExport,
-} from "@material-ui/data-grid";
+import styles from "./UserList.module.css";
 
 const UserList = (props) => {
   const { users } = props;
@@ -24,67 +17,39 @@ const UserList = (props) => {
     props.onDeleteList(newList);
   };
 
-  const CustomToolbar = () => {
-    return (
-      <GridToolbarContainer>
-        <GridToolbarFilterButton />
-        <GridToolbarDensitySelector />
-        <GridToolbarExport />
-      </GridToolbarContainer>
-    );
-  };
-
-  const rows = userList;
-
-  const columns = [
-    { field: "id", hide: true, filterable: false },
-    {
-      field: "firstname",
-      headerName: "First Name",
-      width: 150,
-      editable: true,
-    },
-    { field: "lastname", headerName: "Last Name", width: 150, editable: true },
-    { field: "username", headerName: "Username", width: 150, editable: true },
-    { field: "age", headerName: "Age", width: 150, editable: true },
-    { field: "maths", headerName: "Maths", width: 150, editable: true },
-    {
-      field: "science",
-      headerName: "Science",
-      width: 150,
-      editable: true,
-    },
-    {
-      field: "",
-      width: 150,
-      sortable: false,
-      filterable: false,
-      renderCell: (user) => {
-        return (
-          <IconButton
-            color="secondary"
-            onClick={() => handleDeleteItem(user.id)}
-          >
-            <DeleteIcon />
-          </IconButton>
-        );
-      },
-    },
-  ];
-
   if (userList.length > 0) {
     return (
       <Card>
-        <DataGrid
-          autoHeight
-          rows={rows}
-          columns={columns}
-          components={{
-            Toolbar: CustomToolbar,
-          }}
-          disableColumnMenu={true}
-          hideFooterSelectedRowCount={true}
-        />
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th className={styles.th}>First Name</th>
+              <th className={styles.th}>Last Name</th>
+              <th className={styles.th}>Username</th>
+              <th className={styles.th}>Age</th>
+              <th className={styles.th}>Maths</th>
+              <th className={styles.th}>Science</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userList.map((user) => (
+              <tr key={user.id}>
+                <td className={styles.td}>{user.firstname}</td>
+                <td className={styles.td}>{user.lastname}</td>
+                <td className={styles.td}>{user.username}</td>
+                <td className={styles.td}>{user.age}</td>
+                <td className={styles.td}>{user.maths}</td>
+                <td className={styles.td}>{user.science}</td>
+                <td className={styles.td}>
+                  <DeleteIcon
+                    color="secondary"
+                    onClick={() => handleDeleteItem(user.id)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </Card>
     );
   }
