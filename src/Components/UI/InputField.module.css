@@ -1,0 +1,45 @@
+.input__wrap {
+  position: relative;
+}
+
+.main__input {
+  background-color: inherit;
+}
+
+.input__label {
+  font-size: 1.2rem;
+  left: 25px;
+}
+
+.input__wrap .main__input {
+  width: 100%;
+  height: 2.5rem;
+  border: 1px solid #b7b3b3;
+  border-radius: 0.3rem;
+  padding: 0.7rem;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.main__input:focus {
+  outline: none;
+  border: 2px solid #3f51b5;
+}
+
+.main__input:focus ~ .input__label,
+.main__input:valid ~ .input__label {
+  transform: translateY(-1.1rem);
+  font-size: 0.8rem;
+  left: 10px;
+  background: #eee9e9;
+}
+
+.input__wrap .input__label {
+  position: absolute;
+  color: rgba(0, 0, 0, 0.54);
+  left: 10px;
+  top: 10px;
+  font-size: 1rem;
+  padding: 0 0.2rem;
+  transition: all 0.2s ease;
+}

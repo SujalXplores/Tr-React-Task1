@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Card from "../UI/Card";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-
 import {
   DataGrid,
   GridToolbarContainer,
@@ -60,7 +59,6 @@ const UserList = (props) => {
       width: 150,
       sortable: false,
       filterable: false,
-      disableClickEventBubbling: true,
       renderCell: (user) => {
         return (
           <IconButton

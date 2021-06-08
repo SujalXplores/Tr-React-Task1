@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Card from "../UI/Card";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import Grid from "@material-ui/core/Grid";
+import InputField from "../UI/InputField";
 
 const User = (props) => {
   const [username, setUsername] = useState("");
@@ -59,79 +59,63 @@ const User = (props) => {
       >
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
+            <InputField
               onChange={onFirstNameChange}
               value={firstname}
               label="First Name"
-              variant="outlined"
               type="text"
               required
-              size="small"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
+            <InputField
               onChange={onLastNameChange}
               value={lastname}
               label="Last Name"
-              variant="outlined"
               type="text"
               required
-              size="small"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
+            <InputField
               label="Username"
-              variant="outlined"
               onChange={onUsernameChange}
-              type="text"
               value={username}
+              type="text"
               required
-              size="small"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
+            <InputField
               label="Age"
-              variant="outlined"
               onChange={onAgeChange}
-              type="number"
-              inputProps={{ min: 1, max: 120 }}
               value={age}
-              placeholder="Age"
+              type="number"
+              min="1"
+              max="120"
               required
-              size="small"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
+            <InputField
               onChange={onMathsChange}
               value={maths}
               label="Maths"
-              variant="outlined"
-              inputProps={{ min: 0, max: 100 }}
+              min="0"
+              max="100"
               type="number"
               required
-              size="small"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
+            <InputField
               onChange={onScienceChange}
               value={science}
               label="Science"
-              variant="outlined"
-              inputProps={{ min: 0, max: 100 }}
+              min="0"
+              max="100"
               type="number"
               required
-              size="small"
             />
           </Grid>
         </Grid>
@@ -142,7 +126,7 @@ const User = (props) => {
           color="primary"
           startIcon={<SaveIcon />}
         >
-          Add User
+          Add
         </Button>
       </form>
     </Card>
