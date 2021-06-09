@@ -20,26 +20,52 @@ const UserList = (props) => {
     return (
       <Card>
         <table className={styles.table}>
-          <thead>
-            <tr>
-              <th className={styles.th}>First Name</th>
-              <th className={styles.th}>Last Name</th>
-              <th className={styles.th}>Username</th>
-              <th className={styles.th}>Age</th>
-              <th className={styles.th}>Maths</th>
-              <th className={styles.th}>Science</th>
+          <caption className={styles.caption}>Records</caption>
+          <thead className={styles.thead}>
+            <tr className={styles.tr}>
+              <th className={styles.th} scope="col">
+                First Name
+              </th>
+              <th className={styles.th} scope="col">
+                Last Name
+              </th>
+              <th className={styles.th} scope="col">
+                Username
+              </th>
+              <th className={styles.th} scope="col">
+                Age
+              </th>
+              <th className={styles.th} scope="col">
+                Maths
+              </th>
+              <th className={styles.th} scope="col">
+                Science
+              </th>
+              <th className={styles.th} scope="col"></th>
             </tr>
           </thead>
           <tbody>
             {userList.map((user) => (
-              <tr key={user.id}>
-                <td className={styles.td}>{user.firstname}</td>
-                <td className={styles.td}>{user.lastname}</td>
-                <td className={styles.td}>{user.username}</td>
-                <td className={styles.td}>{user.age}</td>
-                <td className={styles.td}>{user.maths}</td>
-                <td className={styles.td}>{user.science}</td>
-                <td className={styles.td}>
+              <tr key={user.id} className={styles.tr}>
+                <td className={styles.td} data-label="firstname">
+                  {user.firstname}
+                </td>
+                <td className={styles.td} data-label="lastname">
+                  {user.lastname}
+                </td>
+                <td className={styles.td} data-label="username">
+                  {user.username}
+                </td>
+                <td className={styles.td} data-label="age">
+                  {user.age}
+                </td>
+                <td className={styles.td} data-label="maths">
+                  {user.maths}
+                </td>
+                <td className={styles.td} data-label="science">
+                  {user.science}
+                </td>
+                <td className={styles.td} data-label="">
                   <button
                     className={styles.delete__btn}
                     onClick={() => handleDeleteItem(user.id)}

@@ -9,3 +9,7 @@
   font-size: inherit;
   font-family: inherit;
 }
+
+.form__button:hover {
+  background: #1830b5;
+}

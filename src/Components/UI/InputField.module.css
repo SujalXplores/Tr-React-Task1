@@ -7,6 +7,7 @@
 }
 
 .input__label {
+  pointer-events: none;
   font-size: 1.2rem;
   left: 25px;
 }
