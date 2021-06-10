@@ -27,8 +27,9 @@
   border: 2px solid #3f51b5;
 }
 
-.main__input:focus ~ .input__label,
-.main__input:valid ~ .input__label {
+.main__input:focus + .input__label,
+.main__input:valid + .input__label,
+.main__input:not(:placeholder-shown) + .input__label {
   transform: translateY(-1.1rem);
   font-size: 0.8rem;
   left: 10px;
