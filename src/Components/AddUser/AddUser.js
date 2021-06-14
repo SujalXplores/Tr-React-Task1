@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+import axios from "axios";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 import InputField from "../UI/InputField";
@@ -36,18 +37,37 @@ const AddUser = (props) => {
     setAge(event.target.value);
   };
 
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-    if (username && age && firstname && lastname && maths && science) {
-      props.onAddUser(firstname, lastname, username, age, maths, science);
-    }
-    setUsername("");
-    setAge("");
-    setMaths("");
-    setScience("");
-    setFirstname("");
-    setLastName("");
-  };
+  const onSubmitHandler = useCallback(
+    async (event) => {
+      event.preventDefault();
+      if (username && age && firstname && lastname && maths && science) {
+        props.onAddUser(firstname, lastname, username, age, maths, science);
+        const user = {
+          firstname: firstname,
+          lastname: lastname,
+          username: username,
+          age: age,
+          maths: maths,
+          science: science,
+        };
+        await axios
+          .post(
+            "https://react-demo-200ca-default-rtdb.asia-southeast1.firebasedatabase.app/users.json",
+            user
+          )
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+      setUsername("");
+      setAge("");
+      setMaths("");
+      setScience("");
+      setFirstname("");
+      setLastName("");
+    },
+    [age, firstname, lastname, maths, props, science, username]
+  );
 
   return (
     <Card>

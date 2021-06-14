@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Card from "../UI/Card";
 import InputField from "../UI/InputField";
 import styles from "./UserList.module.css";
@@ -16,6 +17,13 @@ const UserList = (props) => {
     const newList = userList.filter((item) => item.id !== id);
     setUserList(newList);
     props.onUpdateList(newList);
+    axios
+      .delete(
+        `https://react-demo-200ca-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}.json`
+      )
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   const compare = (a, b) => {
@@ -29,15 +37,28 @@ const UserList = (props) => {
   };
 
   const onSortHandler = () => {
-    console.log(userList);
     const newList = userList.sort(compare);
     setUserList(newList);
-    console.log(newList);
     props.onUpdateList(userList);
   };
 
-  const filterHandler = (event) => {
+  const onFilterInput = (event) => {
     setSearchTerm(event.target.value);
+  };
+
+  const filterHelper = (val) => {
+    if (searchTerm === "") {
+      return val;
+    } else if (
+      val.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      val.lastname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      val.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      val.age.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      val.science.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      val.maths.toLowerCase().includes(searchTerm.toLowerCase())
+    ) {
+      return val;
+    }
   };
 
   if (userList.length > 0) {
@@ -45,9 +66,9 @@ const UserList = (props) => {
       <Card>
         <div className={styles.input__wrapper}>
           <InputField
-            onChange={filterHandler}
+            onChange={onFilterInput}
             label="Search"
-            type="text"
+            type="search"
             required
           />
         </div>
@@ -78,29 +99,10 @@ const UserList = (props) => {
           <tbody>
             {userList
               .filter((val) => {
-                if (searchTerm === "") {
-                  return val;
-                } else if (
-                  val.firstname
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase()) ||
-                  val.lastname
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase()) ||
-                  val.username
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase()) ||
-                  val.age.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                  val.science
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase()) ||
-                  val.maths.toLowerCase().includes(searchTerm.toLowerCase())
-                ) {
-                  return val;
-                }
+                return filterHelper(val);
               })
               .map((user) => (
-                <tr key={user.id} className={styles.tr}>
+                <tr key={Math.random()} className={styles.tr}>
                   <td className={styles.td} data-label="firstname">
                     {user.firstname}
                   </td>
