@@ -39,6 +39,11 @@
   cursor: pointer;
 }
 
+.input__wrapper {
+  width: 30%;
+  margin-bottom: 1rem;
+}
+
 @media screen and (max-width: 600px) {
   .table {
     border: 0;

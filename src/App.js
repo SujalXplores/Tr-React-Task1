@@ -33,7 +33,7 @@ const App = () => {
         <AddUser onAddUser={addUserHandler} />
       </section>
       <section>
-        <UserList users={userList} onDeleteList={setNewList} />
+        <UserList users={userList} onUpdateList={setNewList} />
       </section>
     </div>
   );
