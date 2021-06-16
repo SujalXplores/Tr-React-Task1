@@ -1,140 +1,231 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
+import useInput from "../Hooks/use-input";
 import axios from "axios";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 import InputField from "../UI/InputField";
 import styles from "./AddUser.module.css";
 
+const isNotEmpty = (value) => value.trim() !== "";
+
 const AddUser = (props) => {
-  const [username, setUsername] = useState("");
-  const [age, setAge] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [maths, setMaths] = useState("");
-  const [science, setScience] = useState("");
+  const {
+    value: firstNameValue,
+    isValid: firstNameIsValid,
+    hasError: firstNameHasError,
+    valueChangeHandler: firstNameChangeHandler,
+    inputBlurHandler: firstNameBlurHandler,
+    reset: resetFirstName,
+  } = useInput(isNotEmpty);
 
-  const onUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const {
+    value: lastNameValue,
+    isValid: lastNameIsValid,
+    hasError: lastNameHasError,
+    valueChangeHandler: lastNameChangeHandler,
+    inputBlurHandler: lastNameBlurHandler,
+    reset: resetLastName,
+  } = useInput(isNotEmpty);
+
+  const {
+    value: userNameValue,
+    isValid: userNameIsValid,
+    hasError: userNameHasError,
+    valueChangeHandler: userNameChangeHandler,
+    inputBlurHandler: userNameBlurHandler,
+    reset: resetUserName,
+  } = useInput(isNotEmpty);
+
+  const {
+    value: ageValue,
+    isValid: ageIsValid,
+    hasError: ageHasError,
+    valueChangeHandler: ageChangeHandler,
+    inputBlurHandler: ageBlurHandler,
+    reset: resetAge,
+  } = useInput(isNotEmpty);
+
+  const {
+    value: mathsValue,
+    isValid: mathsIsValid,
+    hasError: mathsHasError,
+    valueChangeHandler: mathsChangeHandler,
+    inputBlurHandler: mathsBlurHandler,
+    reset: resetMaths,
+  } = useInput(isNotEmpty);
+
+  const {
+    value: scienceValue,
+    isValid: scienceIsValid,
+    hasError: scienceHasError,
+    valueChangeHandler: scienceChangeHandler,
+    inputBlurHandler: scienceBlurHandler,
+    reset: resetScience,
+  } = useInput(isNotEmpty);
+
+  let formIsValid = false;
+
+  if (
+    firstNameIsValid &&
+    lastNameIsValid &&
+    userNameIsValid &&
+    ageIsValid &&
+    mathsIsValid &&
+    scienceIsValid
+  ) {
+    formIsValid = true;
+  }
+
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+
+    if (!formIsValid) {
+      return;
+    }
+
+    props.onAddUser(
+      firstNameValue,
+      lastNameValue,
+      userNameValue,
+      ageValue,
+      mathsValue,
+      scienceValue
+    );
+
+    const user = {
+      firstname: firstNameValue,
+      lastname: lastNameValue,
+      username: userNameValue,
+      age: ageValue,
+      maths: mathsValue,
+      science: scienceValue,
+    };
+
+    try {
+      axios.post(
+        "https://react-demo-200ca-default-rtdb.asia-southeast1.firebasedatabase.app/users.json",
+        user
+      );
+      resetFirstName();
+      resetLastName();
+      resetUserName();
+      resetAge();
+      resetMaths();
+      resetScience();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const onMathsChange = (event) => {
-    setMaths(event.target.value);
-  };
-
-  const onScienceChange = (event) => {
-    setScience(event.target.value);
-  };
-
-  const onFirstNameChange = (event) => {
-    setFirstname(event.target.value);
-  };
-
-  const onLastNameChange = (event) => {
-    setLastName(event.target.value);
-  };
-
-  const onAgeChange = (event) => {
-    setAge(event.target.value);
-  };
-
-  const onSubmitHandler = useCallback(
-    async (event) => {
-      event.preventDefault();
-      if (username && age && firstname && lastname && maths && science) {
-        props.onAddUser(firstname, lastname, username, age, maths, science);
-        const user = {
-          firstname: firstname,
-          lastname: lastname,
-          username: username,
-          age: age,
-          maths: maths,
-          science: science,
-        };
-        await axios
-          .post(
-            "https://react-demo-200ca-default-rtdb.asia-southeast1.firebasedatabase.app/users.json",
-            user
-          )
-          .catch((e) => {
-            console.log(e);
-          });
-      }
-      setUsername("");
-      setAge("");
-      setMaths("");
-      setScience("");
-      setFirstname("");
-      setLastName("");
-    },
-    [age, firstname, lastname, maths, props, science, username]
-  );
+  const firstNameClasses = firstNameHasError
+    ? "input__container invalid"
+    : "input__container";
+  const lastNameClasses = lastNameHasError
+    ? "input__container invalid"
+    : "input__container";
+  const userNameClasses = userNameHasError
+    ? "input__container invalid"
+    : "input__container";
+  const ageClasses = ageHasError
+    ? "input__container invalid"
+    : "input__container";
+  const mathsClasses = mathsHasError
+    ? "input__container invalid"
+    : "input__container";
+  const scienceClasses = scienceHasError
+    ? "input__container invalid"
+    : "input__container";
 
   return (
     <Card>
       <form onSubmit={onSubmitHandler} autoComplete="off">
         <div className={styles.main__container}>
-          <div className={styles.input__container}>
+          <div className={firstNameClasses}>
             <InputField
-              onChange={onFirstNameChange}
-              value={firstname}
+              onChange={firstNameChangeHandler}
+              value={firstNameValue}
+              onBlur={firstNameBlurHandler}
               label="First Name"
               type="text"
               required
             />
+            {firstNameHasError && (
+              <p className="error-text">Please enter a first name.</p>
+            )}
           </div>
-          <div className={styles.input__container}>
+          <div className={lastNameClasses}>
             <InputField
-              onChange={onLastNameChange}
-              value={lastname}
+              onChange={lastNameChangeHandler}
+              value={lastNameValue}
+              onBlur={lastNameBlurHandler}
               label="Last Name"
               type="text"
               required
             />
+            {lastNameHasError && (
+              <p className="error-text">Please enter a last name.</p>
+            )}
           </div>
-          <div className={styles.input__container}>
+          <div className={userNameClasses}>
             <InputField
               label="Username"
-              onChange={onUsernameChange}
-              value={username}
+              onChange={userNameChangeHandler}
+              value={userNameValue}
+              onBlur={userNameBlurHandler}
               type="text"
               required
             />
+            {userNameHasError && (
+              <p className="error-text">Please enter a username.</p>
+            )}
           </div>
-          <div className={styles.input__container}>
+          <div className={ageClasses}>
             <InputField
               label="Age"
-              onChange={onAgeChange}
-              value={age}
+              onChange={ageChangeHandler}
+              value={ageValue}
+              onBlur={ageBlurHandler}
               type="number"
               min="1"
               max="120"
               required
             />
+            {ageHasError && <p className="error-text">Please enter a age.</p>}
           </div>
-          <div className={styles.input__container}>
+          <div className={mathsClasses}>
             <InputField
-              onChange={onMathsChange}
-              value={maths}
+              onChange={mathsChangeHandler}
+              value={mathsValue}
+              onBlur={mathsBlurHandler}
               label="Maths"
               min="0"
               max="100"
               type="number"
               required
             />
+            {mathsHasError && (
+              <p className="error-text">Please enter maths marks.</p>
+            )}
           </div>
-          <div className={styles.input__container}>
+          <div className={scienceClasses}>
             <InputField
-              onChange={onScienceChange}
-              value={science}
+              onChange={scienceChangeHandler}
+              value={scienceValue}
+              onBlur={scienceBlurHandler}
               label="Science"
               min="0"
               max="100"
               type="number"
               required
             />
+            {scienceHasError && (
+              <p className="error-text">Please enter science marks.</p>
+            )}
           </div>
         </div>
-        <Button type="submit">Add</Button>
+        <Button type="submit" disabled={!formIsValid}>
+          + Add
+        </Button>
       </form>
     </Card>
   );

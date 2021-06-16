@@ -8,3 +8,41 @@ html {
   font-family: Roboto, "Open Sans", sans-serif;
   background: linear-gradient(#303030 100%, #5d5d5d 100%);
 }
+
+button:disabled,
+button:disabled:hover,
+button:disabled:active {
+  background-color: #ccc;
+  color: #292929;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+.invalid input {
+  border-color: #b40e0e;
+  background-color: #fddddd;
+}
+
+.invalid input:focus {
+  border-color: #ff8800;
+  background-color: #fbe8d2;
+}
+
+.error-text {
+  color: #b40e0e;
+}
+
+.input__container {
+  width: 50%;
+  padding: 0.5rem;
+}
+
+.form__button {
+  margin: 0.5rem;
+}
+
+@media (max-width: 40rem) {
+  .input__container {
+    width: 100%;
+  }
+}
