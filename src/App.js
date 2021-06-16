@@ -2,9 +2,11 @@ import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import AddUser from "./Components/AddUser/AddUser";
 import UserList from "./Components/UserList/UserList";
+import Toast from "./Components/UI/Toast";
 
 const App = () => {
   const [userList, setUserList] = useState([]);
+  const [showToast, setShowToast] = useState(false);
 
   const getUsers = useCallback(async () => {
     await axios
@@ -51,6 +53,10 @@ const App = () => {
         },
       ];
     });
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
   };
 
   const setNewList = (newList) => {
@@ -59,7 +65,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <section>
         <AddUser onAddUser={addUserHandler} />
       </section>
@@ -70,7 +76,8 @@ const App = () => {
           getUsers={getUsers}
         />
       </section>
-    </div>
+      {showToast && <Toast type="info" message="Record added" />}
+    </React.Fragment>
   );
 };
 
