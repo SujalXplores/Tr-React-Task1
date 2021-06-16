@@ -102,7 +102,7 @@ const AddUser = (props) => {
     };
 
     try {
-      axios.post(
+      await axios.post(
         "https://react-demo-200ca-default-rtdb.asia-southeast1.firebasedatabase.app/users.json",
         user
       );

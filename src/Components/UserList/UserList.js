@@ -16,16 +16,15 @@ const UserList = (props) => {
 
   const handleDeleteItem = useCallback(
     (id) => {
-      async function deleteItem() {
+      const url = `https://react-demo-200ca-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}.json`;
+      const deleteItem = async () => {
         try {
-          await axios.delete(
-            `https://react-demo-200ca-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}.json`
-          );
+          await axios.delete(url);
           await props.getUsers();
         } catch (e) {
           console.log(e);
         }
-      }
+      };
       deleteItem();
     },
     [props]

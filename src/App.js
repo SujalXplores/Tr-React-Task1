@@ -12,19 +12,21 @@ const App = () => {
         "https://react-demo-200ca-default-rtdb.asia-southeast1.firebasedatabase.app/users.json"
       )
       .then((res) => {
-        const loadedUsers = [];
-        for (const key in res.data) {
-          loadedUsers.push({
-            id: key,
-            firstname: res.data[key].firstname,
-            lastname: res.data[key].lastname,
-            username: res.data[key].username,
-            age: res.data[key].age,
-            maths: res.data[key].maths,
-            science: res.data[key].science,
-          });
+        if (res.statusText === "OK") {
+          const loadedUsers = [];
+          for (const key in res.data) {
+            loadedUsers.push({
+              id: key,
+              firstname: res.data[key].firstname,
+              lastname: res.data[key].lastname,
+              username: res.data[key].username,
+              age: res.data[key].age,
+              maths: res.data[key].maths,
+              science: res.data[key].science,
+            });
+          }
+          setUserList(loadedUsers);
         }
-        setUserList(loadedUsers);
       })
       .catch((e) => {
         console.log(e);
@@ -62,7 +64,11 @@ const App = () => {
         <AddUser onAddUser={addUserHandler} />
       </section>
       <section>
-        <UserList users={userList} onUpdateList={setNewList} />
+        <UserList
+          users={userList}
+          onUpdateList={setNewList}
+          getUsers={getUsers}
+        />
       </section>
     </div>
   );
