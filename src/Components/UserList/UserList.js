@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import Card from "../UI/Card";
 import InputField from "../UI/InputField";
+import DeleteIcon from "../UI/DeleteIcon";
 import styles from "./UserList.module.css";
 
 const UserList = (props) => {
@@ -13,18 +14,22 @@ const UserList = (props) => {
     setUserList(users);
   }, [users]);
 
-  const handleDeleteItem = (id) => {
-    const newList = userList.filter((item) => item.id !== id);
-    setUserList(newList);
-    props.onUpdateList(newList);
-    axios
-      .delete(
-        `https://react-demo-200ca-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}.json`
-      )
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  const handleDeleteItem = useCallback(
+    (id) => {
+      async function deleteItem() {
+        try {
+          await axios.delete(
+            `https://react-demo-200ca-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}.json`
+          );
+          await props.getUsers();
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      deleteItem();
+    },
+    [props]
+  );
 
   const compare = (a, b) => {
     if (a.lastname < b.lastname) {
@@ -102,7 +107,13 @@ const UserList = (props) => {
                 return filterHelper(val);
               })
               .map((user) => (
-                <tr key={Math.random()} className={styles.tr}>
+                <tr
+                  key={
+                    Math.random().toString(36).substring(2, 15) +
+                    Math.random().toString(36).substring(2, 15)
+                  }
+                  className={styles.tr}
+                >
                   <td className={styles.td} data-label="firstname">
                     {user.firstname}
                   </td>
@@ -123,10 +134,10 @@ const UserList = (props) => {
                   </td>
                   <td className={styles.td} data-label="">
                     <button
-                      className={styles.delete__btn}
                       onClick={() => handleDeleteItem(user.id)}
+                      className={styles.button}
                     >
-                      Delete
+                      <DeleteIcon size="24px" color="red" />
                     </button>
                   </td>
                 </tr>
